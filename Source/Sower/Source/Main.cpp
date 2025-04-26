@@ -8,6 +8,7 @@
 
 #include <JuceHeader.h>
 #include "MainComponent.h"
+#include "Tests/TestHarness.cpp"
 
 //==============================================================================
 class SowerApplication  : public juce::JUCEApplication
@@ -103,4 +104,4 @@ private:
 
 //==============================================================================
 // This macro generates the main() routine that launches the app.
-START_JUCE_APPLICATION (SowerApplication)
+START_JUCE_APPLICATION (TestHarness)
