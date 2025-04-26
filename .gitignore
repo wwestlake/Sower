@@ -1,0 +1,56 @@
+#==============================================================================
+# General
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*.swp
+/Source/assimp/
+
+#==============================================================================
+# C++ Builds
+*.obj
+*.o
+*.so
+*.a
+*.lib
+*.dll
+*.exe
+*.out
+*.idb
+*.pdb
+*.ipdb
+*.iobj
+*.ilk
+*.exp
+
+#==============================================================================
+# Visual Studio Specific
+.vs/
+*.suo
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.VC.opendb
+*.user
+*.userosscache
+*.sln.docstates
+
+#==============================================================================
+# JUCE Builds
+Builds/
+JuceLibraryCode/
+*.jucer
+
+#==============================================================================
+# Xcode Specific (if any mac builds later)
+*.xcworkspace/
+*.xcuserdata/
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+
+#==============================================================================
+# Generated Autoproj files
+*.autosave
+*.session

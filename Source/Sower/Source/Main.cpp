@@ -24,7 +24,8 @@ public:
     void initialise (const juce::String& commandLine) override
     {
         // This method is where you should put your application's initialisation code..
-
+        static ThemeManager globalThemeManager;
+        globalThemeManager.applyTheme(ThemeManager::Dark);
         mainWindow.reset (new MainWindow (getApplicationName()));
     }
 

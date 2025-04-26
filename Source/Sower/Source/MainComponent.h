@@ -1,32 +1,29 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "UI/WorkbenchTabsComponent.h"
+#include "UI/StatusBarComponent.h"
+#include "UI/ThemeManager.h"
 
-//==============================================================================
-/*
-    This component lives inside our window, and this is where you should put all
-    your controls and content.
-*/
-class MainComponent  : public juce::OpenGLAppComponent
+class MainComponent : public juce::Component,
+    public juce::MenuBarModel
 {
 public:
-    //==============================================================================
     MainComponent();
     ~MainComponent() override;
 
-    //==============================================================================
-    void initialise() override;
-    void shutdown() override;
-    void render() override;
-
-    //==============================================================================
-    void paint (juce::Graphics& g) override;
+    void paint(juce::Graphics&) override;
     void resized() override;
 
+    // MenuBarModel overrides
+    juce::StringArray getMenuBarNames() override;
+    juce::PopupMenu getMenuForIndex(int menuIndex, const juce::String& menuName) override;
+    void menuItemSelected(int menuItemID, int topLevelMenuIndex) override;
+
 private:
-    //==============================================================================
-    // Your private member variables go here...
-
-
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
+    juce::MenuBarComponent menuBar{ this };
+    WorkbenchTabsComponent workbenchTabs;
+    StatusBarComponent statusBar;
+    //ThemeManager themeManager; 
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

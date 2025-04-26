@@ -1,56 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="CeejVe" name="Sower" projectType="guiapp" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
-  <MAINGROUP id="aFjNpT" name="Sower">
-    <GROUP id="{D091C039-6B98-2C08-1CA2-A843428669A1}" name="Source">
-      <FILE id="DVMmgX" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="ah19s2" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="HPjBEc" name="MainComponent.cpp" compile="1" resource="0"
+<JUCERPROJECT id="PYTpDC" name="Sower" projectType="guiapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" headerPath="D:\00001 DSP Workbench\Source\assimp\assimp-5.4.3\build\include\assimp">
+  <MAINGROUP id="vt9Qvv" name="Sower">
+    <GROUP id="{C0F8DCB4-7329-30F6-E993-D329FBF0D499}" name="Source">
+      <FILE id="uefY1a" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
+      <FILE id="uIg0Ek" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
+      <GROUP id="{2A6BF533-73AF-7A67-EE9F-ECE3CA91E712}" name="Effects">
+        <GROUP id="{70356F88-4A04-26B3-0747-336CA6AF3100}" name="Generators">
+          <FILE id="tYIblX" name="BasicGenerators.cpp" compile="1" resource="0"
+                file="Source/Effects/Generators/BasicGenerators.cpp"/>
+          <FILE id="t2tuqb" name="BasicGenerators.h" compile="0" resource="0"
+                file="Source/Effects/Generators/BasicGenerators.h"/>
+          <FILE id="kXbWlj" name="GeneratorBase.cpp" compile="1" resource="0"
+                file="Source/Effects/Generators/GeneratorBase.cpp"/>
+          <FILE id="VSpJT8" name="GeneratorBase.h" compile="0" resource="0" file="Source/Effects/Generators/GeneratorBase.h"/>
+          <FILE id="VV2Jww" name="SineGeneratorEffect.cpp" compile="1" resource="0"
+                file="Source/Effects/Generators/SineGeneratorEffect.cpp"/>
+          <FILE id="vXdBzV" name="SineGeneratorEffect.h" compile="0" resource="0"
+                file="Source/Effects/Generators/SineGeneratorEffect.h"/>
+        </GROUP>
+        <FILE id="sNqMbb" name="EffectBase.h" compile="0" resource="0" file="Source/Effects/EffectBase.h"/>
+        <FILE id="bSpJ7Q" name="EffectMetadata.h" compile="0" resource="0"
+              file="Source/Effects/EffectMetadata.h"/>
+        <FILE id="f6DHge" name="EffectPipeline.cpp" compile="1" resource="0"
+              file="Source/Effects/EffectPipeline.cpp"/>
+        <FILE id="egICWI" name="EffectPipeline.h" compile="0" resource="0"
+              file="Source/Effects/EffectPipeline.h"/>
+        <FILE id="NAeM9Q" name="SourceEffect.cpp" compile="1" resource="0"
+              file="Source/Effects/SourceEffect.cpp"/>
+        <FILE id="jM3CU1" name="SourceEffect.h" compile="0" resource="0" file="Source/Effects/SourceEffect.h"/>
+      </GROUP>
+      <GROUP id="{A74CCB0C-72B9-7CF2-B023-23CA5782989A}" name="UI">
+        <FILE id="Gz6UVz" name="AudioFileManagerComponent.cpp" compile="1"
+              resource="0" file="Source/UI/AudioFileManagerComponent.cpp"/>
+        <FILE id="Q4Eord" name="AudioFileManagerComponent.h" compile="0" resource="0"
+              file="Source/UI/AudioFileManagerComponent.h"/>
+        <FILE id="Fq1n5J" name="FileSelectorComponent.cpp" compile="1" resource="0"
+              file="Source/UI/FileSelectorComponent.cpp"/>
+        <FILE id="HrF6G9" name="FileSelectorComponent.h" compile="0" resource="0"
+              file="Source/UI/FileSelectorComponent.h"/>
+        <FILE id="etYkSK" name="LabeledTextBox.cpp" compile="1" resource="0"
+              file="Source/UI/LabeledTextBox.cpp"/>
+        <FILE id="VtDmNC" name="LabeledTextBox.h" compile="0" resource="0"
+              file="Source/UI/LabeledTextBox.h"/>
+        <FILE id="eF48Rl" name="ProjectInfoComponent.cpp" compile="1" resource="0"
+              file="Source/UI/ProjectInfoComponent.cpp"/>
+        <FILE id="o5G2SG" name="ProjectInfoComponent.h" compile="0" resource="0"
+              file="Source/UI/ProjectInfoComponent.h"/>
+        <FILE id="Wa4EHn" name="ProjectSettingsComponent.cpp" compile="1" resource="0"
+              file="Source/UI/ProjectSettingsComponent.cpp"/>
+        <FILE id="J3XNHQ" name="ProjectSettingsComponent.h" compile="0" resource="0"
+              file="Source/UI/ProjectSettingsComponent.h"/>
+        <FILE id="IPtDhL" name="StatusBarComponent.cpp" compile="1" resource="0"
+              file="Source/UI/StatusBarComponent.cpp"/>
+        <FILE id="vyl3jE" name="StatusBarComponent.h" compile="0" resource="0"
+              file="Source/UI/StatusBarComponent.h"/>
+        <FILE id="xVc7Qo" name="ThemeManager.cpp" compile="1" resource="0"
+              file="Source/UI/ThemeManager.cpp"/>
+        <FILE id="ygLheT" name="ThemeManager.h" compile="0" resource="0" file="Source/UI/ThemeManager.h"/>
+        <FILE id="Se4xBC" name="WorkbenchTabsComponent.cpp" compile="1" resource="0"
+              file="Source/UI/WorkbenchTabsComponent.cpp"/>
+        <FILE id="T8ZwpT" name="WorkbenchTabsComponent.h" compile="0" resource="0"
+              file="Source/UI/WorkbenchTabsComponent.h"/>
+      </GROUP>
+      <FILE id="frlC2H" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="N6rZST" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="vlITRe" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
     </GROUP>
   </MAINGROUP>
-  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
-  <EXPORTFORMATS>
-    <VS2022 targetFolder="Builds/VisualStudio2022">
-      <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="Sower"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="Sower"/>
-      </CONFIGURATIONS>
-      <MODULEPATHS>
-        <MODULEPATH id="juce_analytics" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_box2d" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_dsp" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_opengl" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_osc" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_product_unlocking" path="../../../JUCE/modules"/>
-        <MODULEPATH id="juce_video" path="../../../JUCE/modules"/>
-      </MODULEPATHS>
-    </VS2022>
-  </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="juce_analytics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
-            useGlobalPath="1"/>
-    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_box2d" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
@@ -61,8 +84,29 @@
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_osc" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_product_unlocking" showAllCode="1" useLocalCopy="0"
-            useGlobalPath="1"/>
-    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
   </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022" externalLibraries="assimp-vc142-mtd.lib&#10;">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Sower" libraryPath="D:\00001 DSP Workbench\Source\assimp\assimp-5.4.3\build\lib\Debug"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Sower"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_osc" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
 </JUCERPROJECT>
