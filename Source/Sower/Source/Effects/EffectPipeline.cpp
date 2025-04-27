@@ -1,4 +1,13 @@
+// EffectPipeline.cpp
 #include "EffectPipeline.h"
+
+EffectPipeline::EffectPipeline()
+{
+}
+
+EffectPipeline::~EffectPipeline()
+{
+}
 
 void EffectPipeline::addEffect(std::unique_ptr<EffectBase> effect)
 {
@@ -26,4 +35,28 @@ void EffectPipeline::resetAll()
 {
     for (auto& effect : effects)
         effect->reset();
+}
+
+// ===== New DSP-friendly methods =====
+
+void EffectPipeline::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
+{
+    prepareAll(sampleRate, samplesPerBlockExpected);
+}
+
+void EffectPipeline::releaseResources()
+{
+    resetAll();
+}
+
+void EffectPipeline::processBlock(juce::AudioBuffer<float>& buffer)
+{
+    const int numSamples = buffer.getNumSamples();
+    const int numChannels = buffer.getNumChannels();
+
+    for (int channel = 0; channel < numChannels; ++channel)
+    {
+        float* channelData = buffer.getWritePointer(channel);
+        processAll(channelData, numSamples);
+    }
 }

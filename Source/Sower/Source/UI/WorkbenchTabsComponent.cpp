@@ -1,13 +1,18 @@
 #include "WorkbenchTabsComponent.h"
+#include "ThemeManager.h"
 
 WorkbenchTabsComponent::WorkbenchTabsComponent()
 {
-    // Add tabs and corresponding components
-    tabHolder.addTab("Project Info", juce::Colours::lightgrey, &projectInfo, false);
-    tabHolder.addTab("Project Settings", juce::Colours::lightgrey, &projectSettings, false);
+    auto tabBackground = juce::LookAndFeel::getDefaultLookAndFeel()
+        .findColour(juce::TabbedComponent::backgroundColourId);
+
+    tabHolder.addTab("Project Info", tabBackground, &projectInfo, false);
+    tabHolder.addTab("Project Settings", tabBackground, &projectSettings, false);
+    tabHolder.addTab("Test", tabBackground, &testHarness, false);
 
     addAndMakeVisible(tabHolder);
 }
+
 void WorkbenchTabsComponent::paint(juce::Graphics& g)
 {
     g.fillAll(findColour(juce::ResizableWindow::backgroundColourId));

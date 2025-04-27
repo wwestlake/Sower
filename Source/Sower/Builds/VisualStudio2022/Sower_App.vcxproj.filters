@@ -658,6 +658,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\AudioGeneratorSource.cpp">
+      <Filter>Sower\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AudioFileSource.cpp">
+      <Filter>Sower\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Tests\EffesctTests.cpp">
+      <Filter>Sower\Source\Tests</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Tests\TestHarness.cpp">
       <Filter>Sower\Source\Tests</Filter>
     </ClCompile>
@@ -3699,6 +3708,24 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\AudioSourceFactory.h">
+      <Filter>Sower\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AudioGeneratorSource.h">
+      <Filter>Sower\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AudioFileSource.h">
+      <Filter>Sower\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\IPlayableAudioSource.h">
+      <Filter>Sower\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Tests\EffesctTests.h">
+      <Filter>Sower\Source\Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Tests\TestHarness.h">
+      <Filter>Sower\Source\Tests</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\AudioPlayer.h">
       <Filter>Sower\Source</Filter>
     </ClInclude>

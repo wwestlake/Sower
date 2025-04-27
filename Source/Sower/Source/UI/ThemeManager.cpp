@@ -1,53 +1,71 @@
+// ThemeManager.cpp
 #include "ThemeManager.h"
 
-ThemeManager::ThemeManager()
-{
-    lightThemeLAF.setColourScheme(juce::LookAndFeel_V4::getLightColourScheme());
-    darkThemeLAF.setColourScheme(juce::LookAndFeel_V4::getDarkColourScheme());
+std::vector<Theme> ThemeManager::themes;
+Theme* ThemeManager::currentTheme = nullptr;
 
-    applyTheme(Dark); // Default to dark theme
+void ThemeManager::initializeThemes()
+{
+    themes.clear();
+
+    // Insert Dark Theme first
+    auto darkTheme = std::make_unique<juce::LookAndFeel_V4>();
+    darkTheme->setColour(juce::TabbedComponent::backgroundColourId, juce::Colours::darkgrey);
+    darkTheme->setColour(juce::ResizableWindow::backgroundColourId, juce::Colours::black);
+    themes.push_back({ "Dark", std::move(darkTheme) });
+
+    // Insert Light Theme second
+    auto lightTheme = std::make_unique<juce::LookAndFeel_V4>();
+    lightTheme->setColour(juce::TabbedComponent::backgroundColourId, juce::Colours::lightgrey);
+    lightTheme->setColour(juce::ResizableWindow::backgroundColourId, juce::Colours::white);
+    themes.push_back({ "Light", std::move(lightTheme) });
+
+    // Set default theme to index 0
+    setActiveTheme(0);
 }
 
-void ThemeManager::applyTheme(Theme theme)
+void ThemeManager::setActiveTheme(const juce::String& name)
 {
-    currentTheme = theme;
-
-    auto* laf = (theme == Light) ? &lightThemeLAF : &darkThemeLAF;
-    juce::LookAndFeel::setDefaultLookAndFeel(laf);
-
-    // Core component backgrounds
-    laf->setColour(juce::ResizableWindow::backgroundColourId, juce::Colour::fromRGB(28, 30, 34)); // near black
-
-    // Text Editors
-    laf->setColour(juce::TextEditor::backgroundColourId, juce::Colour::fromRGB(40, 42, 48));
-    laf->setColour(juce::TextEditor::textColourId, juce::Colours::white);
-    laf->setColour(juce::TextEditor::outlineColourId, juce::Colours::darkgrey);
-    laf->setColour(juce::TextEditor::focusedOutlineColourId, juce::Colours::lightslategrey);
-
-    // ComboBoxes
-    laf->setColour(juce::ComboBox::backgroundColourId, juce::Colour::fromRGB(40, 42, 48));
-    laf->setColour(juce::ComboBox::textColourId, juce::Colours::white);
-    laf->setColour(juce::ComboBox::outlineColourId, juce::Colours::grey);
-    laf->setColour(juce::ComboBox::arrowColourId, juce::Colours::white);
-
-    // Buttons
-    laf->setColour(juce::TextButton::buttonColourId, juce::Colour::fromRGB(40, 42, 48));
-    laf->setColour(juce::TextButton::buttonOnColourId, juce::Colour::fromRGB(60, 62, 68));
-    laf->setColour(juce::TextButton::textColourOffId, juce::Colours::white);
-    laf->setColour(juce::TextButton::textColourOnId, juce::Colours::white);
-
-    // Scrollbars
-    laf->setColour(juce::ScrollBar::thumbColourId, juce::Colours::grey);
-    laf->setColour(juce::ScrollBar::trackColourId, juce::Colour::fromRGB(28, 30, 34));
-
-    // Popup Menus and Tooltips
-    laf->setColour(juce::PopupMenu::backgroundColourId, juce::Colour::fromRGB(40, 42, 48));
-    laf->setColour(juce::PopupMenu::textColourId, juce::Colours::white);
-    laf->setColour(juce::TooltipWindow::backgroundColourId, juce::Colour::fromRGB(40, 42, 48));
-    laf->setColour(juce::TooltipWindow::textColourId, juce::Colours::white);
+    for (auto& theme : themes)
+    {
+        if (theme.name == name)
+        {
+            currentTheme = &theme;
+            juce::Desktop::getInstance().setDefaultLookAndFeel(currentTheme->lookAndFeel.get());
+            return;
+        }
+    }
 }
 
-ThemeManager::Theme ThemeManager::getCurrentTheme() const
+void ThemeManager::setActiveTheme(int index)
 {
-    return currentTheme;
+    if (index >= 0 && index < static_cast<int>(themes.size()))
+    {
+        currentTheme = &themes[index];
+        juce::Desktop::getInstance().setDefaultLookAndFeel(currentTheme->lookAndFeel.get());
+    }
+}
+
+Theme& ThemeManager::getActiveTheme()
+{
+    if (currentTheme != nullptr)
+        return *currentTheme;
+
+    jassertfalse; // Should never happen if properly initialized
+    static Theme dummyFallbackTheme{ "Fallback", std::make_unique<juce::LookAndFeel_V4>() };
+    return dummyFallbackTheme;
+}
+
+juce::StringArray ThemeManager::getAvailableThemeNames()
+{
+    juce::StringArray names;
+    for (auto& theme : themes)
+        names.add(theme.name);
+    return names;
+}
+
+void ThemeManager::shutdownThemes()
+{
+    themes.clear();
+    currentTheme = nullptr;
 }

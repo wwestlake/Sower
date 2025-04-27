@@ -4,8 +4,24 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" headerPath="D:\00001 DSP Workbench\Source\assimp\assimp-5.4.3\build\include\assimp">
   <MAINGROUP id="vt9Qvv" name="Sower">
     <GROUP id="{C0F8DCB4-7329-30F6-E993-D329FBF0D499}" name="Source">
+      <FILE id="D9MXQW" name="AudioSourceFactory.h" compile="0" resource="0"
+            file="Source/AudioSourceFactory.h"/>
+      <FILE id="Vmhv1i" name="AudioGeneratorSource.cpp" compile="1" resource="0"
+            file="Source/AudioGeneratorSource.cpp"/>
+      <FILE id="YOaB1i" name="AudioGeneratorSource.h" compile="0" resource="0"
+            file="Source/AudioGeneratorSource.h"/>
+      <FILE id="c8q5SE" name="AudioFileSource.cpp" compile="1" resource="0"
+            file="Source/AudioFileSource.cpp"/>
+      <FILE id="KzUySQ" name="AudioFileSource.h" compile="0" resource="0"
+            file="Source/AudioFileSource.h"/>
+      <FILE id="Ei2SJx" name="IPlayableAudioSource.h" compile="0" resource="0"
+            file="Source/IPlayableAudioSource.h"/>
       <GROUP id="{0DE6E76D-D9E0-7890-9CF8-EDE2FCF80ECB}" name="Tests">
+        <FILE id="ZGpwkc" name="EffesctTests.cpp" compile="1" resource="0"
+              file="Source/Tests/EffesctTests.cpp"/>
+        <FILE id="ZkKqK3" name="EffesctTests.h" compile="0" resource="0" file="Source/Tests/EffesctTests.h"/>
         <FILE id="CLM8TW" name="TestHarness.cpp" compile="1" resource="0" file="Source/Tests/TestHarness.cpp"/>
+        <FILE id="Q9D7i6" name="TestHarness.h" compile="0" resource="0" file="Source/Tests/TestHarness.h"/>
       </GROUP>
       <FILE id="uefY1a" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
       <FILE id="uIg0Ek" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>

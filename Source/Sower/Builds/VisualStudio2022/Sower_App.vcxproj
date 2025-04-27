@@ -155,6 +155,9 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\AudioGeneratorSource.cpp"/>
+    <ClCompile Include="..\..\Source\AudioFileSource.cpp"/>
+    <ClCompile Include="..\..\Source\Tests\EffesctTests.cpp"/>
     <ClCompile Include="..\..\Source\Tests\TestHarness.cpp"/>
     <ClCompile Include="..\..\Source\AudioPlayer.cpp"/>
     <ClCompile Include="..\..\Source\Effects\Generators\BasicGenerators.cpp"/>
@@ -2903,6 +2906,12 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_osc.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\AudioSourceFactory.h"/>
+    <ClInclude Include="..\..\Source\AudioGeneratorSource.h"/>
+    <ClInclude Include="..\..\Source\AudioFileSource.h"/>
+    <ClInclude Include="..\..\Source\IPlayableAudioSource.h"/>
+    <ClInclude Include="..\..\Source\Tests\EffesctTests.h"/>
+    <ClInclude Include="..\..\Source\Tests\TestHarness.h"/>
     <ClInclude Include="..\..\Source\AudioPlayer.h"/>
     <ClInclude Include="..\..\Source\Effects\Generators\BasicGenerators.h"/>
     <ClInclude Include="..\..\Source\Effects\Generators\GeneratorBase.h"/>

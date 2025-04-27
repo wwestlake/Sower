@@ -4,8 +4,6 @@
 //==============================================================================
 MainComponent::MainComponent()
 {
-    //themeManager.applyTheme(ThemeManager::Dark);
-
     addAndMakeVisible(menuBar);
     addAndMakeVisible(workbenchTabs);
     addAndMakeVisible(statusBar);

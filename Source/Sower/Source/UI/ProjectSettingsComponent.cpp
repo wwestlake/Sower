@@ -1,7 +1,7 @@
-﻿#include "ProjectSettingsComponent.h"
+﻿// ProjectSettingsComponent.cpp
+#include "ProjectSettingsComponent.h"
 #include "ThemeManager.h"
 
-//==============================================================================
 ProjectSettingsComponent::ProjectSettingsComponent()
 {
     addAndMakeVisible(projectRootLabel);
@@ -11,8 +11,9 @@ ProjectSettingsComponent::ProjectSettingsComponent()
 
     addAndMakeVisible(modulePathsLabel);
     addAndMakeVisible(addModuleFolderButton);
-    addAndMakeVisible(moduleListViewport);
-    moduleListViewport.setViewedComponent(&moduleListContainer, false);
+    addAndMakeVisible(moduleListBox);
+    moduleListBox.setModel(this);
+
     addModuleFolderButton.onClick = [this]() { openModuleFolderChooser(); };
 
     addAndMakeVisible(outputLabel);
@@ -33,21 +34,33 @@ ProjectSettingsComponent::ProjectSettingsComponent()
 
     addAndMakeVisible(themeLabel);
     addAndMakeVisible(themeSelector);
-
-    themeSelector.addItem("Light", 1);
-    themeSelector.addItem("Dark", 2);
-    themeSelector.setSelectedId(2);
+    populateThemesDropdown();
 
     themeSelector.onChange = [this]()
         {
-            if (themeSelector.getSelectedId() == 1)
-                ThemeManager().applyTheme(ThemeManager::Light);
-            else
-                ThemeManager().applyTheme(ThemeManager::Dark);
+            auto selectedName = themeSelector.getText();
+            ThemeManager::setActiveTheme(selectedName);
         };
 }
 
-//==============================================================================
+ProjectSettingsComponent::~ProjectSettingsComponent() = default;
+
+void ProjectSettingsComponent::populateThemesDropdown()
+{
+    auto names = ThemeManager::getAvailableThemeNames();
+    themeSelector.clear();
+
+    int id = 1;
+    for (const auto& name : names)
+        themeSelector.addItem(name, id++);
+
+    if (themeSelector.getSelectedId() == 0)
+    {
+        auto defaultTheme = ThemeManager::getActiveTheme().name;
+        themeSelector.setText(defaultTheme, juce::dontSendNotification);
+    }
+}
+
 void ProjectSettingsComponent::resized()
 {
     auto area = getLocalBounds().reduced(10);
@@ -60,7 +73,7 @@ void ProjectSettingsComponent::resized()
 
     modulePathsLabel.setBounds(area.removeFromTop(rowHeight));
     addModuleFolderButton.setBounds(area.removeFromTop(rowHeight));
-    moduleListViewport.setBounds(area.removeFromTop(150));
+    moduleListBox.setBounds(area.removeFromTop(150));
 
     area.removeFromTop(10);
     outputLabel.setBounds(area.removeFromTop(rowHeight));
@@ -79,166 +92,73 @@ void ProjectSettingsComponent::paint(juce::Graphics& g)
     g.fillAll(findColour(juce::ResizableWindow::backgroundColourId));
 }
 
-//==============================================================================
 void ProjectSettingsComponent::openProjectRootChooser()
 {
-    folderChooser = std::make_unique<juce::FileChooser>(
-        "Choose a project root folder...", juce::File(), juce::String());
+    folderChooser = std::make_unique<juce::FileChooser>("Select Project Root Folder", juce::File(), "*", true);
+    auto chooserFlags = juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectDirectories;
 
-    folderChooser->launchAsync(
-        juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectDirectories,
-        [this](const juce::FileChooser& fc)
+    folderChooser->launchAsync(chooserFlags, [this](const juce::FileChooser& chooser)
         {
-            auto f = fc.getResult();
-            if (f.isDirectory())
-                projectRootPath.setText(f.getFullPathName(), juce::dontSendNotification);
+            auto result = chooser.getResult();
+            if (result.exists())
+            {
+                projectRootPath.setText(result.getFullPathName());
+            }
         });
 }
 
 void ProjectSettingsComponent::openModuleFolderChooser()
 {
-    folderChooser = std::make_unique<juce::FileChooser>(
-        "Add module folder...", juce::File(), juce::String());
+    folderChooser = std::make_unique<juce::FileChooser>("Add Module Folder", juce::File(), "*", true);
+    auto chooserFlags = juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectDirectories;
 
-    folderChooser->launchAsync(
-        juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectDirectories,
-        [this](const juce::FileChooser& fc)
+    folderChooser->launchAsync(chooserFlags, [this](const juce::FileChooser& chooser)
         {
-            auto f = fc.getResult();
-            if (f.isDirectory())
+            auto result = chooser.getResult();
+            if (result.exists())
             {
-                moduleListContainer.addFolder(f);
-                moduleListViewport.repaint();
+                moduleFolders.add(result);
+                moduleListBox.updateContent();
+                moduleListBox.repaint();
             }
         });
 }
 
-//==============================================================================
-juce::var ProjectSettingsComponent::getJson() const
+// ==========================
+// ListBoxModel Implementation
+// ==========================
+int ProjectSettingsComponent::getNumRows()
 {
-    juce::DynamicObject::Ptr obj = new juce::DynamicObject();
-    obj->setProperty("projectRoot", projectRootPath.getText());
-
-    juce::Array<juce::File> folders = moduleListContainer.getAllFolders();
-    juce::Array<juce::var> folderPaths;
-    for (const auto& f : folders)
-        folderPaths.add(f.getFullPathName());
-
-    obj->setProperty("modulePaths", folderPaths);
-    obj->setProperty("outputFormat", formatBox.getText());
-    obj->setProperty("sampleRate", sampleRateBox.getText());
-    obj->setProperty("bitDepth", bitDepthBox.getText());
-    obj->setProperty("channels", channelBox.getText());
-
-    return obj.get();
+    return moduleFolders.size();
 }
 
-void ProjectSettingsComponent::setFromJson(const juce::var& json)
+void ProjectSettingsComponent::paintListBoxItem(int rowNumber, juce::Graphics& g, int width, int height, bool rowIsSelected)
 {
-    if (auto* obj = json.getDynamicObject())
-    {
-        projectRootPath.setText(obj->getProperty("projectRoot").toString());
+    auto bgColor = findColour(juce::ListBox::backgroundColourId);
+    auto textColor = findColour(juce::ListBox::textColourId);
 
-        if (auto* arr = obj->getProperty("modulePaths").getArray())
+    if (rowIsSelected)
+        g.fillAll(bgColor.brighter(0.2f));
+    else
+        g.fillAll(bgColor);
+
+    if (rowNumber >= 0 && rowNumber < moduleFolders.size())
+    {
+        g.setColour(textColor);
+        g.drawText(moduleFolders[rowNumber].getFullPathName(),
+            4, 0, width - 8, height, juce::Justification::centredLeft);
+    }
+}
+
+void ProjectSettingsComponent::listBoxItemClicked(int row, const juce::MouseEvent& e)
+{
+    if (e.mods.isRightButtonDown())
+    {
+        if (row >= 0 && row < moduleFolders.size())
         {
-            moduleListContainer.clearAll();
-            for (const auto& v : *arr)
-                moduleListContainer.addFolder(juce::File(v.toString()));
+            moduleFolders.remove(row);
+            moduleListBox.updateContent();
+            moduleListBox.repaint();
         }
-
-        formatBox.setText(obj->getProperty("outputFormat").toString());
-        sampleRateBox.setText(obj->getProperty("sampleRate").toString());
-        bitDepthBox.setText(obj->getProperty("bitDepth").toString());
-        channelBox.setText(obj->getProperty("channels").toString());
     }
-}
-
-//==============================================================================
-// ModuleListContainer Methods
-void ProjectSettingsComponent::ModuleListContainer::addFolder(const juce::File& folder)
-{
-    auto* item = new ModuleItem(folder, [this](ModuleItem* toRemove)
-        {
-            juce::MessageManager::callAsync([this, toRemove]()
-                {
-                    items.removeObject(toRemove, true);
-                    resized();
-                    setSize(getParentWidth(), items.size() * 35);
-                    if (auto* parent = getParentComponent())
-                        parent->resized();
-                });
-        });
-
-    items.add(item);
-    addAndMakeVisible(item);
-    resized();
-    setSize(getParentWidth(), items.size() * 35);
-    if (auto* parent = getParentComponent())
-        parent->resized();
-}
-
-void ProjectSettingsComponent::ModuleListContainer::clearAll()
-{
-    items.clear(true);
-    resized();
-}
-
-void ProjectSettingsComponent::ModuleListContainer::resized()
-{
-    int y = 0;
-    for (auto* item : items)
-    {
-        item->setBounds(0, y, getWidth(), 30);
-        y += 35;
-    }
-    setSize(getParentWidth(), y);
-}
-
-void ProjectSettingsComponent::ModuleListContainer::paint(juce::Graphics& g)
-{
-    g.fillAll(juce::Colours::transparentBlack);
-}
-
-juce::Array<juce::File> ProjectSettingsComponent::ModuleListContainer::getAllFolders() const
-{
-    juce::Array<juce::File> out;
-    for (auto* i : items)
-        out.add(i->folder);
-    return out;
-}
-
-//==============================================================================
-// ModuleItem Methods
-ProjectSettingsComponent::ModuleListContainer::ModuleItem::ModuleItem(
-    const juce::File& f, std::function<void(ModuleItem*)> onDelete)
-    : folder(f), onDeleteCallback(std::move(onDelete))
-{
-    pathLabel.setText(folder.getFullPathName(), juce::dontSendNotification);
-    addAndMakeVisible(pathLabel);
-
-    removeButton.onClick = [safeThis = juce::Component::SafePointer<ModuleItem>(this)]()
-        {
-            if (safeThis)
-            {
-                juce::MessageManager::callAsync([safeThis]()
-                    {
-                        if (safeThis && safeThis->onDeleteCallback)
-                            safeThis->onDeleteCallback(safeThis.getComponent());
-                    });
-            }
-        };
-
-    addAndMakeVisible(removeButton);
-}
-
-void ProjectSettingsComponent::ModuleListContainer::ModuleItem::resized()
-{
-    auto area = getLocalBounds().reduced(4);
-    removeButton.setBounds(area.removeFromRight(80));
-    pathLabel.setBounds(area);
-}
-
-void ProjectSettingsComponent::ModuleListContainer::ModuleItem::paint(juce::Graphics& g)
-{
-    g.drawRect(getLocalBounds());
 }

@@ -8,7 +8,6 @@
 
 #include <JuceHeader.h>
 #include "MainComponent.h"
-#include "Tests/TestHarness.cpp"
 
 //==============================================================================
 class SowerApplication  : public juce::JUCEApplication
@@ -25,16 +24,15 @@ public:
     void initialise (const juce::String& commandLine) override
     {
         // This method is where you should put your application's initialisation code..
-        static ThemeManager globalThemeManager;
-        globalThemeManager.applyTheme(ThemeManager::Dark);
+        ThemeManager::initializeThemes(); // Initialize themes
         mainWindow.reset (new MainWindow (getApplicationName()));
     }
 
     void shutdown() override
     {
-        // Add your application's shutdown code here..
-
-        mainWindow = nullptr; // (deletes our window)
+        ThemeManager::shutdownThemes();  // <-- Clear static themes early
+        juce::Desktop::getInstance().setDefaultLookAndFeel(nullptr); // <-- Clear LookAndFeel
+        mainWindow = nullptr; // <-- Destroy window last
     }
 
     //==============================================================================
@@ -104,4 +102,4 @@ private:
 
 //==============================================================================
 // This macro generates the main() routine that launches the app.
-START_JUCE_APPLICATION (TestHarness)
+START_JUCE_APPLICATION (SowerApplication)
