@@ -10,7 +10,6 @@ void GeneratorBase::prepare(double newSampleRate, int)
 {
     sampleRate = newSampleRate;
     updatePhaseIncrement();
-    reset();
 }
 
 void GeneratorBase::reset()
@@ -27,4 +26,19 @@ void GeneratorBase::setFrequency(float newFrequency)
 void GeneratorBase::updatePhaseIncrement()
 {
     phaseIncrement = (2.0 * juce::MathConstants<double>::pi * frequency) / sampleRate;
+}
+
+void GeneratorBase::processFrame(float* data, int numSamples)
+{
+}
+
+const char* GeneratorBase::getName() const
+{
+    return nullptr;
+}
+
+const EffectMetadata& GeneratorBase::getMetadata() const
+{
+    static EffectMetadata emptyMetadata = { "Unknown", "No description", "Unknown", "unknown_icon" };
+    return emptyMetadata;
 }

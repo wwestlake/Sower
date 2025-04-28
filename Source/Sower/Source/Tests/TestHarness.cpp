@@ -1,18 +1,10 @@
-// TestHarness.cpp
 #include "TestHarness.h"
+#include "../AudioSourceFactory.h"
+#include "../Effects/Generators/SineGeneratorEffect.h"
+#include "../Effects/GainEffect.h"
 
 TestHarness::TestHarness()
 {
-    deviceManager.initialise(0, 2, nullptr, true, {}, nullptr);
-
-    deviceSelector = std::make_unique<juce::AudioDeviceSelectorComponent>(
-        deviceManager,
-        0, 0,
-        2, 2,
-        false, false, false, false);
-
-    addAndMakeVisible(*deviceSelector);
-
     addAndMakeVisible(playButton);
     addAndMakeVisible(pauseButton);
     addAndMakeVisible(stopButton);
@@ -26,109 +18,85 @@ TestHarness::TestHarness()
 
     volumeSlider.setRange(0.0, 1.0, 0.01);
     volumeSlider.setValue(1.0);
-    volumeSlider.setTextBoxStyle(juce::Slider::TextBoxRight, false, 80, 20);
-    volumeSlider.setTooltip("Output Volume");
 
-    statusLabel.setText("Status: Stopped", juce::dontSendNotification);
+    deviceSelector = std::make_unique<juce::AudioDeviceSelectorComponent>(
+        deviceManager, 0, 2, 0, 2, true, true, true, false);
+    addAndMakeVisible(deviceSelector.get());
+
+    audioPlayer = std::make_unique<AudioPlayer>(deviceManager);
 
     buildPipeline();
+    updateStatus();
 }
 
 TestHarness::~TestHarness()
 {
-    audioPlayer = nullptr;
-    pipeline = nullptr;
-    deviceSelector = nullptr;
-    deviceManager.closeAudioDevice();
+    if (audioPlayer)
+        audioPlayer->shutdown(); 
+
+    playButton.removeListener(this);
+    pauseButton.removeListener(this);
+    stopButton.removeListener(this);
+    volumeSlider.removeListener(this);
 }
 
 void TestHarness::buildPipeline()
 {
     pipeline = std::make_unique<EffectPipeline>();
+    pipeline->addEffect(std::make_unique<SineGeneratorEffect>());
+    pipeline->addEffect(std::make_unique<GainEffect>());
 
-    auto sine = std::make_unique<SineGeneratorEffect>();
-    sine->setFrequency(440.0f);
-
-    auto gain = std::make_unique<GainEffect>();
-    gain->setGain(0.5f);
-
-    pipeline->addEffect(std::move(sine));
-    pipeline->addEffect(std::move(gain));
-
-    audioPlayer = std::make_unique<AudioPlayer>(deviceManager);
-    audioPlayer->setEffectPipeline(pipeline.get());
+    auto source = AudioSourceFactory::createGeneratorSource(pipeline.get());
+    audioPlayer->loadSource(std::move(source));
 }
 
 void TestHarness::resized()
 {
-    auto area = getLocalBounds().reduced(10);
-    deviceSelector->setBounds(area.removeFromTop(200).reduced(0, 10));
+    auto area = getLocalBounds().reduced(10); // Add a little border around everything
 
-    auto buttonArea = area.removeFromTop(40);
-    playButton.setBounds(buttonArea.removeFromLeft(80));
-    pauseButton.setBounds(buttonArea.removeFromLeft(80));
-    stopButton.setBounds(buttonArea.removeFromLeft(80));
+    auto left = area.removeFromLeft(200); // Left 200 pixels for buttons etc
+    auto buttonArea = left.reduced(10);   // Add internal padding
 
-    area.removeFromTop(10);
-    volumeSlider.setBounds(area.removeFromTop(40));
-    area.removeFromTop(10);
+    playButton.setBounds(buttonArea.removeFromTop(30).reduced(5));
+    pauseButton.setBounds(buttonArea.removeFromTop(30).reduced(5));
+    stopButton.setBounds(buttonArea.removeFromTop(30).reduced(5));
+    volumeSlider.setBounds(buttonArea.removeFromTop(30).reduced(5));
+    statusLabel.setBounds(buttonArea.removeFromTop(30).reduced(5));
 
-    statusLabel.setBounds(area.removeFromTop(30));
+    deviceSelector->setBounds(area.reduced(10)); // Device selector on the right, also padded
 }
 
 void TestHarness::buttonClicked(juce::Button* button)
 {
     if (button == &playButton)
     {
-        if (!isPlaying)
-        {
-            audioPlayer->play();
-            isPlaying = true;
-            isPaused = false;
-            updateStatus();
-        }
-        else if (isPaused)
-        {
-            audioPlayer->play();
-            isPaused = false;
-            updateStatus();
-        }
+        audioPlayer->play();
+        updateStatus();
     }
     else if (button == &pauseButton)
     {
-        if (isPlaying && !isPaused)
-        {
-            audioPlayer->pause();
-            isPaused = true;
-            updateStatus();
-        }
+        audioPlayer->pause();
+        updateStatus();
     }
     else if (button == &stopButton)
     {
-        if (isPlaying)
-        {
-            audioPlayer->stop();
-            isPlaying = false;
-            isPaused = false;
-            updateStatus();
-        }
+        audioPlayer->stop();
+        updateStatus();
     }
 }
 
 void TestHarness::sliderValueChanged(juce::Slider* slider)
 {
-    if (slider == &volumeSlider && audioPlayer)
+    if (slider == &volumeSlider)
     {
-        audioPlayer->setVolume((float)volumeSlider.getValue());
+        audioPlayer->setVolume((float)slider->getValue());
     }
 }
 
 void TestHarness::updateStatus()
 {
-    if (isPlaying && !isPaused)
-        statusLabel.setText("Status: Playing", juce::dontSendNotification);
-    else if (isPaused)
-        statusLabel.setText("Status: Paused", juce::dontSendNotification);
+    if (audioPlayer)
+        statusLabel.setText(audioPlayer->isPlaying() ? "Playing" : "Stopped", juce::dontSendNotification);
     else
-        statusLabel.setText("Status: Stopped", juce::dontSendNotification);
+        statusLabel.setText("No Audio", juce::dontSendNotification);
 }

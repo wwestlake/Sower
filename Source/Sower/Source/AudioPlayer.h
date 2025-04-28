@@ -1,8 +1,8 @@
-// AudioPlayer.h
 #pragma once
 
 #include <JuceHeader.h>
 #include "Effects/EffectPipeline.h"
+#include "IPlayableAudioSource.h"
 
 class AudioPlayer : public juce::AudioSource
 {
@@ -14,21 +14,18 @@ public:
     void pause();
     void stop();
     void setVolume(float newVolume);
-    void setEffectPipeline(EffectPipeline* pipeline);
-    void loadAudioFile(const juce::File& file);
+
+    void loadSource(std::unique_ptr<IPlayableAudioSource> newSource);
 
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
     void releaseResources() override;
     void getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill) override;
-
+    bool isPlaying() const;
+    void shutdown();
 private:
     juce::AudioDeviceManager& deviceManager;
     std::unique_ptr<juce::AudioSourcePlayer> audioSourcePlayer;
 
-    juce::AudioFormatManager formatManager;
-    std::unique_ptr<juce::AudioFormatReaderSource> readerSource;
-    juce::AudioTransportSource transportSource;
-
-    EffectPipeline* effectPipeline = nullptr;
+    std::unique_ptr<IPlayableAudioSource> source;
     float volume = 1.0f; // default full volume
 };

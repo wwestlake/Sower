@@ -1,10 +1,8 @@
-// AudioPlayer.cpp
 #include "AudioPlayer.h"
 
 AudioPlayer::AudioPlayer(juce::AudioDeviceManager& manager)
     : deviceManager(manager)
 {
-    formatManager.registerBasicFormats();
     audioSourcePlayer = std::make_unique<juce::AudioSourcePlayer>();
     audioSourcePlayer->setSource(this);
     deviceManager.addAudioCallback(audioSourcePlayer.get());
@@ -13,41 +11,30 @@ AudioPlayer::AudioPlayer(juce::AudioDeviceManager& manager)
 AudioPlayer::~AudioPlayer()
 {
     deviceManager.removeAudioCallback(audioSourcePlayer.get());
-    audioSourcePlayer->setSource(nullptr);
     audioSourcePlayer = nullptr;
 }
 
-void AudioPlayer::setEffectPipeline(EffectPipeline* pipeline)
+void AudioPlayer::loadSource(std::unique_ptr<IPlayableAudioSource> newSource)
 {
-    effectPipeline = pipeline;
-}
-
-void AudioPlayer::loadAudioFile(const juce::File& file)
-{
-    if (auto* reader = formatManager.createReaderFor(file))
-    {
-        readerSource.reset(new juce::AudioFormatReaderSource(reader, true));
-        transportSource.setSource(readerSource.get(), 0, nullptr, reader->sampleRate);
-    }
+    source = std::move(newSource);
 }
 
 void AudioPlayer::play()
 {
-    if (!transportSource.isPlaying())
-        transportSource.start();
+    if (source)
+        source->play();
 }
 
 void AudioPlayer::pause()
 {
-    if (transportSource.isPlaying())
-        transportSource.stop();
+    if (source)
+        source->pause();
 }
 
 void AudioPlayer::stop()
 {
-    if (transportSource.isPlaying())
-        transportSource.stop();
-    transportSource.setPosition(0.0);
+    if (source)
+        source->stop();
 }
 
 void AudioPlayer::setVolume(float newVolume)
@@ -57,39 +44,40 @@ void AudioPlayer::setVolume(float newVolume)
 
 void AudioPlayer::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
-    transportSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
-
-    if (effectPipeline)
-        effectPipeline->prepareToPlay(samplesPerBlockExpected, sampleRate);
+    if (source)
+        source->prepareToPlay(samplesPerBlockExpected, sampleRate);
 }
 
 void AudioPlayer::releaseResources()
 {
-    transportSource.releaseResources();
-
-    if (effectPipeline)
-        effectPipeline->releaseResources();
+    if (source)
+        source->releaseResources();
 }
 
+bool AudioPlayer::isPlaying() const
+{
+    if (source)
+        return source->isPlaying();
+    return false;
+}
+
+void AudioPlayer::shutdown()
+{
+    if (audioSourcePlayer)
+    {
+        deviceManager.removeAudioCallback(audioSourcePlayer.get());
+        audioSourcePlayer = nullptr;
+    }
+}
 void AudioPlayer::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill)
 {
-    if (effectPipeline)
+    if (source)
     {
-        juce::AudioBuffer<float> tempBuffer(bufferToFill.buffer->getNumChannels(), bufferToFill.numSamples);
-        juce::AudioSourceChannelInfo tempInfo(&tempBuffer, 0, bufferToFill.numSamples);
-
-        transportSource.getNextAudioBlock(tempInfo);
-        effectPipeline->processBlock(tempBuffer);
-
-        for (int channel = 0; channel < bufferToFill.buffer->getNumChannels(); ++channel)
-        {
-            bufferToFill.buffer->copyFrom(channel, bufferToFill.startSample, tempBuffer, channel, 0, bufferToFill.numSamples);
-        }
+        source->getNextAudioBlock(bufferToFill);
+        bufferToFill.buffer->applyGain(volume);
     }
     else
     {
-        transportSource.getNextAudioBlock(bufferToFill);
+        bufferToFill.clearActiveBufferRegion();
     }
-
-    bufferToFill.buffer->applyGain(volume);
 }
