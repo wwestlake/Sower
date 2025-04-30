@@ -168,6 +168,7 @@
     <ClCompile Include="..\..\Source\Effects\GainEffect.cpp"/>
     <ClCompile Include="..\..\Source\Effects\SourceEffect.cpp"/>
     <ClCompile Include="..\..\Source\UI\Visualizers\OscilloscopeComponent.cpp"/>
+    <ClCompile Include="..\..\Source\UI\Visualizers\Plot2DComponent.cpp"/>
     <ClCompile Include="..\..\Source\UI\AudioFileManagerComponent.cpp"/>
     <ClCompile Include="..\..\Source\UI\FileSelectorComponent.cpp"/>
     <ClCompile Include="..\..\Source\UI\LabeledSlider.cpp"/>
@@ -2930,6 +2931,9 @@
     <ClInclude Include="..\..\Source\Effects\GainEffect.h"/>
     <ClInclude Include="..\..\Source\Effects\SourceEffect.h"/>
     <ClInclude Include="..\..\Source\UI\Visualizers\OscilloscopeComponent.h"/>
+    <ClInclude Include="..\..\Source\UI\Visualizers\Plot2DComponent.h"/>
+    <ClInclude Include="..\..\Source\UI\Visualizers\PlotComponentBase.h"/>
+    <ClInclude Include="..\..\Source\UI\Visualizers\PlotDataBuffer.h"/>
     <ClInclude Include="..\..\Source\UI\AudioFileManagerComponent.h"/>
     <ClInclude Include="..\..\Source\UI\FileSelectorComponent.h"/>
     <ClInclude Include="..\..\Source\UI\IDataSource.h"/>

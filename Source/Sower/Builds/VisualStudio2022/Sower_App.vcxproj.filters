@@ -703,6 +703,9 @@
     <ClCompile Include="..\..\Source\UI\Visualizers\OscilloscopeComponent.cpp">
       <Filter>Sower\Source\UI\Visualizers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\UI\Visualizers\Plot2DComponent.cpp">
+      <Filter>Sower\Source\UI\Visualizers</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\UI\AudioFileManagerComponent.cpp">
       <Filter>Sower\Source\UI</Filter>
     </ClCompile>
@@ -3784,6 +3787,15 @@
       <Filter>Sower\Source\Effects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\UI\Visualizers\OscilloscopeComponent.h">
+      <Filter>Sower\Source\UI\Visualizers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\Visualizers\Plot2DComponent.h">
+      <Filter>Sower\Source\UI\Visualizers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\Visualizers\PlotComponentBase.h">
+      <Filter>Sower\Source\UI\Visualizers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\Visualizers\PlotDataBuffer.h">
       <Filter>Sower\Source\UI\Visualizers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\UI\AudioFileManagerComponent.h">

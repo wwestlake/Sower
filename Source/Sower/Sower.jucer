@@ -72,6 +72,14 @@
                 file="Source/UI/Visualizers/OscilloscopeComponent.cpp"/>
           <FILE id="LbLKUV" name="OscilloscopeComponent.h" compile="0" resource="0"
                 file="Source/UI/Visualizers/OscilloscopeComponent.h"/>
+          <FILE id="J3T7T8" name="Plot2DComponent.cpp" compile="1" resource="0"
+                file="Source/UI/Visualizers/Plot2DComponent.cpp"/>
+          <FILE id="Ph8iGC" name="Plot2DComponent.h" compile="0" resource="0"
+                file="Source/UI/Visualizers/Plot2DComponent.h"/>
+          <FILE id="rrEeNE" name="PlotComponentBase.h" compile="0" resource="0"
+                file="Source/UI/Visualizers/PlotComponentBase.h"/>
+          <FILE id="gh8an4" name="PlotDataBuffer.h" compile="0" resource="0"
+                file="Source/UI/Visualizers/PlotDataBuffer.h"/>
         </GROUP>
         <FILE id="Gz6UVz" name="AudioFileManagerComponent.cpp" compile="1"
               resource="0" file="Source/UI/AudioFileManagerComponent.cpp"/>
