@@ -1,6 +1,9 @@
 #pragma once
 
+#include <functional>
+#include <memory>
 #include "EffectMetadata.h"
+#include "Visualizers/VisualizerDataBase.h"
 
 class EffectBase
 {
@@ -21,4 +24,7 @@ public:
 
     // Retrieve static metadata about the effect for UI display
     virtual const EffectMetadata& getMetadata() const = 0;
+
+    virtual void setVisualizerCallback(std::function<void(std::shared_ptr<VisualizerDataBase>)> callback) {};
+
 };

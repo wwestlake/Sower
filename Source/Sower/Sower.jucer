@@ -26,6 +26,20 @@
       <FILE id="uefY1a" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
       <FILE id="uIg0Ek" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
       <GROUP id="{2A6BF533-73AF-7A67-EE9F-ECE3CA91E712}" name="Effects">
+        <FILE id="rVak3m" name="EffectDataBase.h" compile="0" resource="0"
+              file="Source/Effects/EffectDataBase.h"/>
+        <GROUP id="{87425AD0-629E-EF1E-CF0B-F417B1168BF1}" name="Visualizers">
+          <FILE id="qTPetI" name="OscilloscopeData.h" compile="0" resource="0"
+                file="Source/Effects/Visualizers/OscilloscopeData.h"/>
+          <FILE id="xZzFa4" name="OscilloscopeEffect.cpp" compile="1" resource="0"
+                file="Source/Effects/Visualizers/OscilloscopeEffect.cpp"/>
+          <FILE id="C9i0kG" name="OscilloscopeEffect.h" compile="0" resource="0"
+                file="Source/Effects/Visualizers/OscilloscopeEffect.h"/>
+          <FILE id="IJOlT5" name="SpectrumAnalyzerData.h" compile="0" resource="0"
+                file="Source/Effects/Visualizers/SpectrumAnalyzerData.h"/>
+          <FILE id="UJ76eV" name="VisualizerDataBase.h" compile="0" resource="0"
+                file="Source/Effects/Visualizers/VisualizerDataBase.h"/>
+        </GROUP>
         <GROUP id="{70356F88-4A04-26B3-0747-336CA6AF3100}" name="Generators">
           <FILE id="tYIblX" name="BasicGenerators.cpp" compile="1" resource="0"
                 file="Source/Effects/Generators/BasicGenerators.cpp"/>
@@ -53,6 +67,12 @@
         <FILE id="jM3CU1" name="SourceEffect.h" compile="0" resource="0" file="Source/Effects/SourceEffect.h"/>
       </GROUP>
       <GROUP id="{A74CCB0C-72B9-7CF2-B023-23CA5782989A}" name="UI">
+        <GROUP id="{81CFAA80-8DAB-0008-C61A-2645A5D67B22}" name="Visualizers">
+          <FILE id="mwe8Xi" name="OscilloscopeComponent.cpp" compile="1" resource="0"
+                file="Source/UI/Visualizers/OscilloscopeComponent.cpp"/>
+          <FILE id="LbLKUV" name="OscilloscopeComponent.h" compile="0" resource="0"
+                file="Source/UI/Visualizers/OscilloscopeComponent.h"/>
+        </GROUP>
         <FILE id="Gz6UVz" name="AudioFileManagerComponent.cpp" compile="1"
               resource="0" file="Source/UI/AudioFileManagerComponent.cpp"/>
         <FILE id="Q4Eord" name="AudioFileManagerComponent.h" compile="0" resource="0"
@@ -61,6 +81,10 @@
               file="Source/UI/FileSelectorComponent.cpp"/>
         <FILE id="HrF6G9" name="FileSelectorComponent.h" compile="0" resource="0"
               file="Source/UI/FileSelectorComponent.h"/>
+        <FILE id="GMAUjW" name="IDataSource.h" compile="0" resource="0" file="Source/UI/IDataSource.h"/>
+        <FILE id="ckIYGc" name="LabeledSlider.cpp" compile="1" resource="0"
+              file="Source/UI/LabeledSlider.cpp"/>
+        <FILE id="UNnaJM" name="LabeledSlider.h" compile="0" resource="0" file="Source/UI/LabeledSlider.h"/>
         <FILE id="etYkSK" name="LabeledTextBox.cpp" compile="1" resource="0"
               file="Source/UI/LabeledTextBox.cpp"/>
         <FILE id="VtDmNC" name="LabeledTextBox.h" compile="0" resource="0"
@@ -77,6 +101,7 @@
               file="Source/UI/StatusBarComponent.cpp"/>
         <FILE id="vyl3jE" name="StatusBarComponent.h" compile="0" resource="0"
               file="Source/UI/StatusBarComponent.h"/>
+        <FILE id="Pso43f" name="ThemeColorId.h" compile="0" resource="0" file="Source/UI/ThemeColorId.h"/>
         <FILE id="xVc7Qo" name="ThemeManager.cpp" compile="1" resource="0"
               file="Source/UI/ThemeManager.cpp"/>
         <FILE id="ygLheT" name="ThemeManager.h" compile="0" resource="0" file="Source/UI/ThemeManager.h"/>

@@ -10,7 +10,7 @@ public:
     EffectPipeline();
     ~EffectPipeline();
 
-    void addEffect(std::unique_ptr<EffectBase> effect);
+    void addEffect(std::shared_ptr<EffectBase> effect);
     void clear();
 
     void prepareAll(double sampleRate, int samplesPerBlock);
@@ -23,5 +23,5 @@ public:
     void processBlock(juce::AudioBuffer<float>& buffer);
 
 private:
-    std::vector<std::unique_ptr<EffectBase>> effects;
+    std::vector<std::shared_ptr<EffectBase>> effects;
 };

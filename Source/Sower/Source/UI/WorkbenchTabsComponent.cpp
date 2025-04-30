@@ -9,7 +9,7 @@ WorkbenchTabsComponent::WorkbenchTabsComponent()
     tabHolder.addTab("Project Info", tabBackground, &projectInfo, false);
     tabHolder.addTab("Project Settings", tabBackground, &projectSettings, false);
     tabHolder.addTab("Test", tabBackground, &testHarness, false);
-
+    tabHolder.addTab("O-Scope", tabBackground, &scope, false);
     addAndMakeVisible(tabHolder);
 }
 

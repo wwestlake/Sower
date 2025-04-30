@@ -24,6 +24,7 @@ TestHarness::TestHarness()
     addAndMakeVisible(deviceSelector.get());
 
     audioPlayer = std::make_unique<AudioPlayer>(deviceManager);
+    gainEffect = std::make_shared<GainEffect>();
 
     buildPipeline();
     updateStatus();
@@ -44,7 +45,7 @@ void TestHarness::buildPipeline()
 {
     pipeline = std::make_unique<EffectPipeline>();
     pipeline->addEffect(std::make_unique<SineGeneratorEffect>());
-    pipeline->addEffect(std::make_unique<GainEffect>());
+    pipeline->addEffect(gainEffect);
 
     auto source = AudioSourceFactory::createGeneratorSource(pipeline.get());
     audioPlayer->loadSource(std::move(source));
@@ -91,6 +92,11 @@ void TestHarness::sliderValueChanged(juce::Slider* slider)
     {
         audioPlayer->setVolume((float)slider->getValue());
     }
+}
+
+void TestHarness::attachDataSource(std::function<void(std::shared_ptr<VisualizerDataBase>)> callback)
+{
+    gainEffect->setVisualizerCallback(callback);
 }
 
 void TestHarness::updateStatus()

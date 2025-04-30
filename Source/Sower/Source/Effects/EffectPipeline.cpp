@@ -9,7 +9,7 @@ EffectPipeline::~EffectPipeline()
 {
 }
 
-void EffectPipeline::addEffect(std::unique_ptr<EffectBase> effect)
+void EffectPipeline::addEffect(std::shared_ptr<EffectBase> effect)
 {
     effects.push_back(std::move(effect));
 }

@@ -5,11 +5,17 @@
     <Filter Include="Sower\Source\Tests">
       <UniqueIdentifier>{7F853142-98CB-3391-B2EE-CB20438291B0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sower\Source\Effects\Visualizers">
+      <UniqueIdentifier>{966C86C5-20E4-1B80-8F2A-B7B78E0DC54B}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Sower\Source\Effects\Generators">
       <UniqueIdentifier>{98CC22A6-86BC-B160-1B96-F14D32A73E9F}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sower\Source\Effects">
       <UniqueIdentifier>{BC637753-5906-8593-8C2B-DC866333BAFD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sower\Source\UI\Visualizers">
+      <UniqueIdentifier>{F697DBE2-CF06-2D52-76F5-6CC17C307DB6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sower\Source\UI">
       <UniqueIdentifier>{BAAF94DA-A0CC-F612-205B-5669ADF1F90F}</UniqueIdentifier>
@@ -673,6 +679,9 @@
     <ClCompile Include="..\..\Source\AudioPlayer.cpp">
       <Filter>Sower\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Effects\Visualizers\OscilloscopeEffect.cpp">
+      <Filter>Sower\Source\Effects\Visualizers</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Effects\Generators\BasicGenerators.cpp">
       <Filter>Sower\Source\Effects\Generators</Filter>
     </ClCompile>
@@ -691,10 +700,16 @@
     <ClCompile Include="..\..\Source\Effects\SourceEffect.cpp">
       <Filter>Sower\Source\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\UI\Visualizers\OscilloscopeComponent.cpp">
+      <Filter>Sower\Source\UI\Visualizers</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\UI\AudioFileManagerComponent.cpp">
       <Filter>Sower\Source\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\UI\FileSelectorComponent.cpp">
+      <Filter>Sower\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\LabeledSlider.cpp">
       <Filter>Sower\Source\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\UI\LabeledTextBox.cpp">
@@ -3729,6 +3744,21 @@
     <ClInclude Include="..\..\Source\AudioPlayer.h">
       <Filter>Sower\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Effects\EffectDataBase.h">
+      <Filter>Sower\Source\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Effects\Visualizers\OscilloscopeData.h">
+      <Filter>Sower\Source\Effects\Visualizers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Effects\Visualizers\OscilloscopeEffect.h">
+      <Filter>Sower\Source\Effects\Visualizers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Effects\Visualizers\SpectrumAnalyzerData.h">
+      <Filter>Sower\Source\Effects\Visualizers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Effects\Visualizers\VisualizerDataBase.h">
+      <Filter>Sower\Source\Effects\Visualizers</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Effects\Generators\BasicGenerators.h">
       <Filter>Sower\Source\Effects\Generators</Filter>
     </ClInclude>
@@ -3753,10 +3783,19 @@
     <ClInclude Include="..\..\Source\Effects\SourceEffect.h">
       <Filter>Sower\Source\Effects</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\UI\Visualizers\OscilloscopeComponent.h">
+      <Filter>Sower\Source\UI\Visualizers</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\UI\AudioFileManagerComponent.h">
       <Filter>Sower\Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\UI\FileSelectorComponent.h">
+      <Filter>Sower\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\IDataSource.h">
+      <Filter>Sower\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\LabeledSlider.h">
       <Filter>Sower\Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\UI\LabeledTextBox.h">
@@ -3769,6 +3808,9 @@
       <Filter>Sower\Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\UI\StatusBarComponent.h">
+      <Filter>Sower\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\ThemeColorId.h">
       <Filter>Sower\Source\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\UI\ThemeManager.h">
