@@ -155,6 +155,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Maths\SecondDegreeAffineTransform.cpp"/>
     <ClCompile Include="..\..\Source\AudioGeneratorSource.cpp"/>
     <ClCompile Include="..\..\Source\AudioFileSource.cpp"/>
     <ClCompile Include="..\..\Source\Tests\EffesctTests.cpp"/>
@@ -2910,6 +2911,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_osc.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Maths\SecondDegreeAffineTransform.h"/>
     <ClInclude Include="..\..\Source\AudioSourceFactory.h"/>
     <ClInclude Include="..\..\Source\AudioGeneratorSource.h"/>
     <ClInclude Include="..\..\Source\AudioFileSource.h"/>

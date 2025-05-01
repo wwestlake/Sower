@@ -2,6 +2,9 @@
 
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Sower\Source\Maths">
+      <UniqueIdentifier>{3EC24526-D867-D7E7-B762-C4CE965D43FC}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Sower\Source\Tests">
       <UniqueIdentifier>{7F853142-98CB-3391-B2EE-CB20438291B0}</UniqueIdentifier>
     </Filter>
@@ -664,6 +667,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Maths\SecondDegreeAffineTransform.cpp">
+      <Filter>Sower\Source\Maths</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\AudioGeneratorSource.cpp">
       <Filter>Sower\Source</Filter>
     </ClCompile>
@@ -3726,6 +3732,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Maths\SecondDegreeAffineTransform.h">
+      <Filter>Sower\Source\Maths</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\AudioSourceFactory.h">
       <Filter>Sower\Source</Filter>
     </ClInclude>

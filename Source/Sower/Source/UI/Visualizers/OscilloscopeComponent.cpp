@@ -1,4 +1,5 @@
 #include "OscilloscopeComponent.h"
+#include "../../Effects/Visualizers/OscilloscopeEffect.h"
 
 OscilloscopeComponent::OscilloscopeComponent()
 {
@@ -56,6 +57,24 @@ OscilloscopeComponent::OscilloscopeComponent()
     addAndMakeVisible(triggerEdgeButton);
     addAndMakeVisible(pauseButton);
 }
+
+void OscilloscopeComponent::pushData(const OscilloscopeData& data)
+{
+    if (!data.buffer || data.numSamples == 0 || data.sampleRate <= 0.0)
+        return;
+
+    for (size_t i = 0; i < data.numSamples; ++i)
+    {
+        float x = static_cast<float>(data.startTimeSeconds + static_cast<double>(i) / data.sampleRate);
+        float y = data.buffer[i];
+
+        plot.appendPoint(x, y);
+    }
+
+    plot.repaintPlot();
+}
+
+
 
 void OscilloscopeComponent::paint(juce::Graphics& g)
 {

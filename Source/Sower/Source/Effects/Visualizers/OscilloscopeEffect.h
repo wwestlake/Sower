@@ -5,16 +5,6 @@
 #include "../EffectDataBase.h""
 #include <memory>
 
-struct OscilloscopeData : public VisualizerDataBase
-{
-    const float* buffer = nullptr;
-    size_t numSamples = 0;
-
-    OscilloscopeData(const float* b, size_t n)
-        : buffer(b), numSamples(n)
-    {
-    }
-};
 
 class OscilloscopeEffect : public EffectBase
 {
@@ -32,7 +22,10 @@ public:
     virtual void setVisualizerCallback(std::function<void(std::shared_ptr<VisualizerDataBase>)> callback) override;
     void processFrame(const float* input, size_t numSamples);
 
-    virtual void prepare(double sampleRate, int samplesPerBlock) override {};
+    virtual void prepare(double sampleRate, int samplesPerBlock) override 
+    {
+        this->sampleRate = sampleRate;
+    };
     virtual void reset() override {};
     //virtual const char* getName() override { return "Osciliscope"; };
     //virtual const EffectMetadata& getMetadata() override { return OscilloscopeMetadata; };
@@ -40,4 +33,5 @@ public:
 
 private:
     std::function<void(std::shared_ptr<VisualizerDataBase>)> visualizerCallback;
+    double sampleRate = 0.0;
 };

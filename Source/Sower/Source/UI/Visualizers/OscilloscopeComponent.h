@@ -3,6 +3,7 @@
 #include <JuceHeader.h>
 #include "Plot2DComponent.h"
 #include "../LabeledSlider.h"
+#include "../../Effects/Visualizers/OscilloscopeData.h"
 
 class OscilloscopeComponent : public juce::Component
 {
@@ -12,6 +13,7 @@ public:
 
     void paint(juce::Graphics&) override;
     void resized() override;
+    void pushData(const OscilloscopeData& data);
 
 private:
     Plot2DComponent plot;

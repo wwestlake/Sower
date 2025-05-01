@@ -4,6 +4,12 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" headerPath="D:\00001 DSP Workbench\Source\assimp\assimp-5.4.3\build\include\assimp">
   <MAINGROUP id="vt9Qvv" name="Sower">
     <GROUP id="{C0F8DCB4-7329-30F6-E993-D329FBF0D499}" name="Source">
+      <GROUP id="{DFC946BC-109D-CE93-E178-994D6BDFFBDE}" name="Maths">
+        <FILE id="dN72qC" name="SecondDegreeAffineTransform.cpp" compile="1"
+              resource="0" file="Source/Maths/SecondDegreeAffineTransform.cpp"/>
+        <FILE id="VmXVDR" name="SecondDegreeAffineTransform.h" compile="0"
+              resource="0" file="Source/Maths/SecondDegreeAffineTransform.h"/>
+      </GROUP>
       <FILE id="D9MXQW" name="AudioSourceFactory.h" compile="0" resource="0"
             file="Source/AudioSourceFactory.h"/>
       <FILE id="Vmhv1i" name="AudioGeneratorSource.cpp" compile="1" resource="0"

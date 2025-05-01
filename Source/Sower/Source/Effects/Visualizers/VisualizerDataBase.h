@@ -4,4 +4,6 @@
 
 class VisualizerDataBase : public EffectDataBase
 {
+public:
+    virtual ~VisualizerDataBase() = default;
 };
