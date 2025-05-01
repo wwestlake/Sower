@@ -1,37 +1,28 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "../ThemeColorId.h"
-#include "../LabeledSlider.h" // Include your new slider
+#include "Plot2DComponent.h"
+#include "../LabeledSlider.h"
 
-class OscilloscopeComponent : public juce::Component,
-    private juce::Timer
+class OscilloscopeComponent : public juce::Component
 {
 public:
     OscilloscopeComponent();
-    ~OscilloscopeComponent() override;
+    ~OscilloscopeComponent() override = default;
 
     void paint(juce::Graphics&) override;
     void resized() override;
 
-    void pushNewBuffer(const float* data, size_t numSamples, int channelId);
-
 private:
-    void timerCallback() override;
+    Plot2DComponent plot;
 
-    // === UI Controls ===
     LabeledSlider timeScaleSlider{ "Time Scale" };
     LabeledSlider verticalScaleSlider{ "Vertical Scale" };
-    LabeledSlider triggerThresholdSlider{ "Trigger" };
+    LabeledSlider triggerThresholdSlider{ "Trigger Level" };
+    LabeledSlider brightnessSlider{ "Brightness" }; // New brightness control
 
-    juce::ToggleButton triggerEdgeButton;
-    juce::ToggleButton pauseButton;
-
-    juce::GroupComponent controlGroup{ "controls", "Scope Controls" };
-
-    std::vector<float> waveformBuffer;
-    std::mutex bufferMutex;
-    bool isPaused = false;
+    juce::TextButton triggerEdgeButton{ "Toggle Edge" };
+    juce::TextButton pauseButton{ "Pause" };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OscilloscopeComponent)
 };
