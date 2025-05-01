@@ -25,6 +25,7 @@ OscilloscopeComponent::OscilloscopeComponent()
         {
 
         };
+    timeScaleSlider.setSliderStyle(juce::Slider::Rotary);
 
     // === Vertical Scale Slider ===
     addAndMakeVisible(verticalScaleSlider);
@@ -33,6 +34,7 @@ OscilloscopeComponent::OscilloscopeComponent()
     verticalScaleSlider.getSlider().onValueChange = [this]()
         {
         };
+    verticalScaleSlider.setSliderStyle(juce::Slider::Rotary);
 
     // === Trigger Threshold Slider ===
     addAndMakeVisible(triggerThresholdSlider);
@@ -42,6 +44,7 @@ OscilloscopeComponent::OscilloscopeComponent()
         {
             plot.setHorizontalMarker(0, triggerThresholdSlider.getValue(), "Trigger");
         };
+    triggerThresholdSlider.setSliderStyle(juce::Slider::Rotary);
 
     // === Brightness Slider ===
     addAndMakeVisible(brightnessSlider);
@@ -52,6 +55,7 @@ OscilloscopeComponent::OscilloscopeComponent()
             plot.setAxisAlpha(brightnessSlider.getValue());
             plot.repaint();
         };
+    brightnessSlider.setSliderStyle(juce::Slider::Rotary);
 
     // === Buttons ===
     addAndMakeVisible(triggerEdgeButton);
@@ -84,7 +88,7 @@ void OscilloscopeComponent::paint(juce::Graphics& g)
 void OscilloscopeComponent::resized()
 {
     auto area = getLocalBounds().reduced(10);
-    auto topRow = area.removeFromTop(100);
+    auto topRow = area.removeFromTop(160);
 
     auto quarterWidth = topRow.getWidth() / 4;
 

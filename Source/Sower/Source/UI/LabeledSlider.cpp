@@ -18,9 +18,21 @@ void LabeledSlider::paint(juce::Graphics& g)
 
 void LabeledSlider::resized()
 {
-    auto area = getLocalBounds().reduced(4);
-    label.setBounds(area.removeFromTop(20));
-    slider.setBounds(area.removeFromTop(24));
+    auto area = getLocalBounds();
+    const int labelHeight = 20;
+    label.setBounds(area.removeFromTop(labelHeight));
+
+    if (slider.isRotary())
+    {
+        const int knobSize = juce::jmin(getWidth(), getHeight() - labelHeight) - 10; // Give it padding
+        const int x = (getWidth() - knobSize) / 2;
+        const int y = labelHeight + ((getHeight() - labelHeight - knobSize) / 2);
+        slider.setBounds(x, y, knobSize, knobSize);
+    }
+    else
+    {
+        slider.setBounds(area);
+    }
 }
 
 void LabeledSlider::setSliderStyle(juce::Slider::SliderStyle style)

@@ -20,6 +20,9 @@ void ThemeManager::initializeThemes()
     darkTheme->setColour(toColourId(ThemeColorId::OscilloscopeMeasurementWindow), juce::Colours::red.withAlpha(0.3f));
     darkTheme->setColour(toColourId(ThemeColorId::OscilloscopeWaveform), juce::Colours::limegreen);
     darkTheme->setColour(toColourId(ThemeColorId::OscilloscopeWaveformInactive), juce::Colours::grey.withAlpha(0.4f));
+    darkTheme->setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::limegreen);
+    darkTheme->setColour(juce::Slider::rotarySliderOutlineColourId, juce::Colours::darkgrey);
+
     themes.push_back({ "Dark", std::move(darkTheme) });
 
     // Insert Light Theme second
@@ -33,6 +36,8 @@ void ThemeManager::initializeThemes()
     lightTheme->setColour(toColourId(ThemeColorId::OscilloscopeMeasurementWindow), juce::Colours::red.withAlpha(0.25f));
     lightTheme->setColour(toColourId(ThemeColorId::OscilloscopeWaveform), juce::Colours::darkgreen);
     lightTheme->setColour(toColourId(ThemeColorId::OscilloscopeWaveformInactive), juce::Colours::darkgrey.withAlpha(0.5f));   themes.push_back({ "Light", std::move(lightTheme) });
+    //lightTheme->setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::darkgreen);
+    //lightTheme->setColour(juce::Slider::rotarySliderOutlineColourId, juce::Colours::lightgrey);
 
     // Set default theme to index 0
     setActiveTheme(0);

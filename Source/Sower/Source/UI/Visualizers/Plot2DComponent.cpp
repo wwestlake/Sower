@@ -173,7 +173,7 @@ void Plot2DComponent::renderTickMarks()
 
 void Plot2DComponent::renderMarkers()
 {
-    auto markerCol = markerColor.withAlpha(axisAlpha);
+    auto markerCol = markerColor.withAlpha(1.0f);
     juce::gl::glColor4f(markerCol.getFloatRed(), markerCol.getFloatGreen(), markerCol.getFloatBlue(), markerCol.getFloatAlpha());
 
     juce::gl::glBegin(juce::gl::GL_LINES);
